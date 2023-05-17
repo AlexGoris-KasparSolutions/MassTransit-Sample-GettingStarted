@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using MassTransit;
 using Microsoft.Extensions.Logging;
@@ -19,11 +20,12 @@ namespace GettingStarted
             _logger = logger;
         }
 
-        public Task Consume(ConsumeContext<Message> context)
+        public async Task Consume(ConsumeContext<Message> context)
         {
+            await context.Publish(new Event(context.Message.Text), context.CancellationToken);
             _logger.LogInformation("Received Text: {Text}", context.Message.Text);
 
-            return Task.CompletedTask;
+            throw new Exception("Something went wrong");
         }
     }
 }
