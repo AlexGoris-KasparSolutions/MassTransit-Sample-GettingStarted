@@ -23,6 +23,8 @@ namespace GettingStarted
         {
             _logger.LogInformation("Received Text: {Text}", context.Message.Text);
 
+            throw new System.Exception("Something went wrong");
+
             return Task.CompletedTask;
         }
     }
